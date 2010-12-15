@@ -1,7 +1,7 @@
 Summary:	A liberalised re-implementation of cpp, the C pre-processor
 Name:		cpphs
 Version:	1.11
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Development/Languages
 Source0:	http://hackage.haskell.org/packages/archive/%{name}/%{version}/%{name}-%{version}.tar.gz
@@ -63,6 +63,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGELOG README docs/design docs/index.html
 %doc %{name}-%{version}-doc/html
-%{_bindir}/cpphs
+%attr(755,root,root) %{_bindir}/cpphs
 %{_libdir}/%{ghcdir}/package.conf.d/%{name}.conf
 %{_libdir}/%{ghcdir}/%{name}-%{version}
