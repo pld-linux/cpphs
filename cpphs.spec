@@ -1,7 +1,7 @@
-Summary:	-
+Summary:	A liberalised re-implementation of cpp, the C pre-processor
 Name:		cpphs
 Version:	1.11
-Release:	0.1
+Release:	1
 License:	LGPL
 Group:		Development/Languages
 Source0:	http://hackage.haskell.org/packages/archive/%{name}/%{version}/%{name}-%{version}.tar.gz
@@ -14,6 +14,15 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		ghcdir		ghc-%(/usr/bin/ghc --numeric-version)
 
 %description
+Cpphs is a re-implementation of the C pre-processor that is both
+more compatible with Haskell, and itself written in Haskell so
+that it can be distributed with compilers.
+
+This version of the C pre-processor is pretty-much
+feature-complete and compatible with traditional (K&R)
+pre-processors.  Additional features include: a plain-text mode;
+an option to unlit literate code files; and an option to turn
+off macro-expansion.
 
 %prep
 %setup -q
@@ -39,7 +48,7 @@ rm -rf %{name}-%{version}-doc
 cp -a $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version} %{name}-%{version}-doc
 
 runhaskell Setup.hs register \
-	--gen-pkg-config=$RPM_BUILD_ROOT/%{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
+	--gen-pkg-config=$RPM_BUILD_ROOT/%{_libdir}/%{ghcdir}/package.conf.d/%{name}.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -52,7 +61,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc NEWS
+%doc CHANGELOG README docs/design docs/index.html
 %doc %{name}-%{version}-doc/html
-%{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}
+%{_bindir}/cpphs
+%{_libdir}/%{ghcdir}/package.conf.d/%{name}.conf
+%{_libdir}/%{ghcdir}/%{name}-%{version}
