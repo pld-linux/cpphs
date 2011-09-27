@@ -1,12 +1,12 @@
 %define		pkgname	cpphs
 Summary:	A liberalised re-implementation of cpp, the C pre-processor
 Name:		cpphs
-Version:	1.13
+Version:	1.13.1
 Release:	1
 License:	LGPL
 Group:		Development/Languages
 Source0:	http://hackage.haskell.org/packages/archive/cpphs/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	05175b9b3fff129f9f3d9952040e3656
+# Source0-md5:	4fe8b5c71068e97602b0f45facd76be3
 URL:		http://haskell.org/cpphs/
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	rpmbuild(macros) >= 1.608
@@ -74,7 +74,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGELOG README docs/design docs/index.html
 %attr(755,root,root) %{_bindir}/cpphs
 %{_libdir}/%{ghcdir}/package.conf.d/%{name}.conf
 %{_libdir}/%{ghcdir}/%{name}-%{version}
