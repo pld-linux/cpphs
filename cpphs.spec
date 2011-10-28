@@ -2,7 +2,7 @@
 Summary:	A liberalised re-implementation of cpp, the C pre-processor
 Name:		cpphs
 Version:	1.13.1
-Release:	2
+Release:	3
 License:	LGPL
 Group:		Development/Languages
 Source0:	http://hackage.haskell.org/packages/archive/cpphs/%{version}/%{name}-%{version}.tar.gz
@@ -30,11 +30,25 @@ and compatible with traditional (K&R) pre-processors. Additional
 features include: a plain-text mode; an option to unlit literate code
 files; and an option to turn off macro-expansion.
 
+%package prof
+Summary:	Profiling cpphs library for GHC
+Summary(pl.UTF-8):	Biblioteka profilująca cpphs dla GHC.
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description prof
+Profiling cpphs library for GHC.  Should be installed when
+GHC's profiling subsystem is needed.
+
+%description prof -l pl.UTF-8
+Biblioteka profilująca cpphs dla GHC. Powinna być zainstalowana
+kiedy potrzebujemy systemu profilującego z GHC.
+
 %prep
 %setup -q
 
 %build
-runhaskell Setup.hs configure -v2 \
+runhaskell Setup.hs configure -v2 --enable-library-profiling \
 	--prefix=%{_prefix} \
 	--libdir=%{_libdir} \
 	--libexecdir=%{_libexecdir} \
@@ -70,4 +84,24 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{name}-%{version}-doc/*
 %attr(755,root,root) %{_bindir}/cpphs
 %{_libdir}/%{ghcdir}/package.conf.d/%{name}.conf
-%{_libdir}/%{ghcdir}/%{name}-%{version}
+
+%dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/*.o
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/*.a
+%exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/*_p.a
+
+%dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language
+%dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor
+%dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/Cpphs
+%dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text
+%dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/ParserCombinators
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/Cpphs/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/ParserCombinators/*.hi
+
+%files prof
+%defattr(644,root,root,755)
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/*_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/*.p_hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/Cpphs/*.p_hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/ParserCombinators/*.p_hi
