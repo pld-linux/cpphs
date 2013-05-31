@@ -1,12 +1,12 @@
 %define		pkgname	cpphs
 Summary:	A liberalised re-implementation of cpp, the C pre-processor
 Name:		cpphs
-Version:	1.13.1
-Release:	3
+Version:	1.16
+Release:	1
 License:	LGPL
 Group:		Development/Languages
 Source0:	http://hackage.haskell.org/packages/archive/cpphs/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	4fe8b5c71068e97602b0f45facd76be3
+# Source0-md5:	2224334a779369978d1259996c6539d1
 URL:		http://haskell.org/cpphs/
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	rpmbuild(macros) >= 1.608
@@ -64,8 +64,9 @@ install -d $RPM_BUILD_ROOT%{_libdir}/%{ghcdir}/package.conf.d
 runhaskell Setup.hs copy --destdir=$RPM_BUILD_ROOT
 
 # work around automatic haddock docs installation
-rm -rf %{name}-%{version}-doc
+%{__rm} -rf %{name}-%{version}-doc
 cp -a $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version} %{name}-%{version}-doc
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 runhaskell Setup.hs register \
 	--gen-pkg-config=$RPM_BUILD_ROOT/%{_libdir}/%{ghcdir}/package.conf.d/%{name}.conf
