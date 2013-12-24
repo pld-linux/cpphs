@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	prof	# profiling library
-#
+
 %define		pkgname	cpphs
 Summary:	A liberalised re-implementation of cpp, the C pre-processor
 Summary(pl.UTF-8):	Swobodniejsza reimplementacja cpp (preprocesora C)
@@ -10,29 +10,29 @@ Version:	1.17.1
 Release:	1
 License:	LGPL
 Group:		Development/Languages
-#Source0Download: http://hackage.haskell.org/package/cpphs
-Source0:	http://hackage.haskell.org/package/cpphs-%{version}/%{name}-%{version}.tar.gz
+# Source0Download: http://hackage.haskell.org/package/cpphs
+Source0:	http://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	ef8982c386255b7b485110027690717c
 URL:		http://haskell.org/cpphs/
 BuildRequires:	ghc >= 6.12.3
-BuildRequires:	ghc-base >= 3
 BuildRequires:	ghc-base < 6
+BuildRequires:	ghc-base >= 3
 BuildRequires:	ghc-directory
 BuildRequires:	ghc-old-locale
 BuildRequires:	ghc-old-time
 %if %{with prof}
-BuildRequires:	ghc-prof >= 6.12.3
-BuildRequires:	ghc-base-prof >= 3
 BuildRequires:	ghc-base-prof < 6
+BuildRequires:	ghc-base-prof >= 3
 BuildRequires:	ghc-directory-prof
 BuildRequires:	ghc-old-locale-prof
 BuildRequires:	ghc-old-time-prof
+BuildRequires:	ghc-prof >= 6.12.3
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 Requires(post,postun):	/usr/bin/ghc-pkg
 %requires_eq	ghc
-Requires:	ghc-base >= 3
 Requires:	ghc-base < 6
+Requires:	ghc-base >= 3
 Requires:	ghc-directory
 Requires:	ghc-old-locale
 Requires:	ghc-old-time
@@ -70,8 +70,8 @@ Summary:	Profiling cpphs library for GHC
 Summary(pl.UTF-8):	Biblioteka profilująca cpphs dla GHC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	ghc-base-prof >= 3
 Requires:	ghc-base-prof < 6
+Requires:	ghc-base-prof >= 3
 Requires:	ghc-directory-prof
 Requires:	ghc-old-locale-prof
 Requires:	ghc-old-time-prof
@@ -81,8 +81,8 @@ Profiling cpphs library for GHC. Should be installed when GHC's
 profiling subsystem is needed.
 
 %description prof -l pl.UTF-8
-Biblioteka profilująca cpphs dla GHC. Powinna być zainstalowana
-kiedy potrzebujemy systemu profilującego z GHC.
+Biblioteka profilująca cpphs dla GHC. Powinna być zainstalowana kiedy
+potrzebujemy systemu profilującego z GHC.
 
 %prep
 %setup -q
