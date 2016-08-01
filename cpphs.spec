@@ -6,13 +6,13 @@
 Summary:	A liberalised re-implementation of cpp, the C pre-processor
 Summary(pl.UTF-8):	Swobodniejsza reimplementacja cpp (preprocesora C)
 Name:		cpphs
-Version:	1.17.1
+Version:	1.20.1
 Release:	1
 License:	LGPL
 Group:		Development/Languages
 # Source0Download: http://hackage.haskell.org/package/cpphs
 Source0:	http://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	ef8982c386255b7b485110027690717c
+# Source0-md5:	8d65834ec7b2905545ff127208a64a41
 URL:		http://haskell.org/cpphs/
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	ghc-base < 6
@@ -20,12 +20,14 @@ BuildRequires:	ghc-base >= 3
 BuildRequires:	ghc-directory
 BuildRequires:	ghc-old-locale
 BuildRequires:	ghc-old-time
+BuildRequires:	ghc-polyparse >= 1.9
 %if %{with prof}
 BuildRequires:	ghc-base-prof < 6
 BuildRequires:	ghc-base-prof >= 3
 BuildRequires:	ghc-directory-prof
 BuildRequires:	ghc-old-locale-prof
 BuildRequires:	ghc-old-time-prof
+BuildRequires:	ghc-polyparse-prof >= 1.9
 BuildRequires:	ghc-prof >= 6.12.3
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
@@ -36,6 +38,7 @@ Requires:	ghc-base >= 3
 Requires:	ghc-directory
 Requires:	ghc-old-locale
 Requires:	ghc-old-time
+Requires:	ghc-polyparse >= 1.9
 Obsoletes:	cpphs-doc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -135,13 +138,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/*.hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/Cpphs
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/Cpphs/*.hi
-%dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text
-%dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/ParserCombinators
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/ParserCombinators/*.hi
 
+%if %{with prof}
 %files prof
 %defattr(644,root,root,755)
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScpphs-%{version}_p.a
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/*.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/Cpphs/*.p_hi
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/ParserCombinators/*.p_hi
+%endif
