@@ -6,38 +6,35 @@
 Summary:	A liberalised re-implementation of cpp, the C pre-processor
 Summary(pl.UTF-8):	Swobodniejsza reimplementacja cpp (preprocesora C)
 Name:		cpphs
-Version:	1.20.1
+Version:	1.20.9.1
 Release:	1
 License:	LGPL
 Group:		Development/Languages
 # Source0Download: http://hackage.haskell.org/package/cpphs
 Source0:	http://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	8d65834ec7b2905545ff127208a64a41
+# Source0-md5:	a3a9902c2de8820e9aa022fd632645fb
 URL:		http://haskell.org/cpphs/
 BuildRequires:	ghc >= 6.12.3
-BuildRequires:	ghc-base < 6
-BuildRequires:	ghc-base >= 3
+BuildRequires:	ghc-base < 5
+BuildRequires:	ghc-base >= 4.3
 BuildRequires:	ghc-directory
-BuildRequires:	ghc-old-locale
-BuildRequires:	ghc-old-time
-BuildRequires:	ghc-polyparse >= 1.9
+BuildRequires:	ghc-time
+BuildRequires:	ghc-polyparse >= 1.13
 %if %{with prof}
-BuildRequires:	ghc-base-prof < 6
-BuildRequires:	ghc-base-prof >= 3
+BuildRequires:	ghc-base-prof < 5
+BuildRequires:	ghc-base-prof >= 4.3
 BuildRequires:	ghc-directory-prof
-BuildRequires:	ghc-old-locale-prof
-BuildRequires:	ghc-old-time-prof
-BuildRequires:	ghc-polyparse-prof >= 1.9
+BuildRequires:	ghc-time-prof
+BuildRequires:	ghc-polyparse-prof >= 1.13
 BuildRequires:	ghc-prof >= 6.12.3
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 Requires(post,postun):	/usr/bin/ghc-pkg
 %requires_eq	ghc
-Requires:	ghc-base < 6
+Requires:	ghc-base < 5
 Requires:	ghc-base >= 3
 Requires:	ghc-directory
-Requires:	ghc-old-locale
-Requires:	ghc-old-time
+Requires:	ghc-time
 Requires:	ghc-polyparse >= 1.9
 Obsoletes:	cpphs-doc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -73,11 +70,11 @@ Summary:	Profiling cpphs library for GHC
 Summary(pl.UTF-8):	Biblioteka profilująca cpphs dla GHC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	ghc-base-prof < 6
-Requires:	ghc-base-prof >= 3
+Requires:	ghc-base-prof < 5
+Requires:	ghc-base-prof >= 4.3
 Requires:	ghc-directory-prof
-Requires:	ghc-old-locale-prof
-Requires:	ghc-old-time-prof
+Requires:	ghc-time-prof
+Requires:	ghc-polyparse-prof >= 1.13
 
 %description prof
 Profiling cpphs library for GHC. Should be installed when GHC's
@@ -131,18 +128,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{ghcdir}/package.conf.d/%{name}.conf
 
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/HScpphs-%{version}.o
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScpphs-%{version}.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScpphs-%{version}-*.so
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScpphs-%{version}-*.a
+%exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScpphs-%{version}-*_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/Cpphs
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/Cpphs/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/Cpphs/*.dyn_hi
 
 %if %{with prof}
 %files prof
 %defattr(644,root,root,755)
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScpphs-%{version}_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScpphs-%{version}-*_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/*.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/*.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Language/Preprocessor/Cpphs/*.p_hi
 %endif
