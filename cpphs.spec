@@ -7,7 +7,7 @@ Summary:	A liberalised re-implementation of cpp, the C pre-processor
 Summary(pl.UTF-8):	Swobodniejsza reimplementacja cpp (preprocesora C)
 Name:		cpphs
 Version:	1.20.9.1
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Development/Languages
 # Source0Download: http://hackage.haskell.org/package/cpphs
