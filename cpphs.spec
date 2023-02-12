@@ -36,7 +36,7 @@ Requires:	ghc-base >= 3
 Requires:	ghc-directory
 Requires:	ghc-time
 Requires:	ghc-polyparse >= 1.9
-Obsoletes:	cpphs-doc
+Obsoletes:	cpphs-doc < 1.13.1-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # debuginfo is not useful for ghc
